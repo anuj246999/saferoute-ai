@@ -1,18 +1,14 @@
 """
-SafeRoute AI — Application Entry Point
+SafeRoute AI — Landing Page
 
-Multi-page Streamlit app:
-  - Landing page (app.py) → hero, features, CTA
-  - Dashboard (pages/dashboard.py) → full AI pipeline with Delhi map
+A clean, modern landing page that introduces the project and links
+to the main Streamlit dashboard.
 
-Run with: streamlit run app.py
+Run with: streamlit run landing.py
 """
 
 import streamlit as st
 
-# ---------------------------------------------------------------------------
-# Page config — this MUST be the first Streamlit command
-# ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="SafeRoute AI",
     page_icon="🛡️",
@@ -21,14 +17,16 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------------------------
-# Custom CSS
+# Hide default Streamlit chrome for a cleaner landing feel
 # ---------------------------------------------------------------------------
 st.markdown("""
 <style>
+    /* ---------- reset ---------- */
     [data-testid="stSidebar"] { display: none; }
     header[data-testid="stHeader"] { background: transparent; }
     .block-container { padding-top: 0 !important; max-width: 1200px; }
 
+    /* ---------- hero ---------- */
     .hero {
         text-align: center;
         padding: 80px 20px 40px;
@@ -45,7 +43,23 @@ st.markdown("""
         font-size: 20px; color: #b0bec5; margin: 16px auto 32px;
         max-width: 640px; line-height: 1.6;
     }
+    .hero .cta-btn {
+        display: inline-block;
+        padding: 16px 48px;
+        font-size: 18px; font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #1e88e5, #00b0ff);
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 24px rgba(0,176,255,0.35);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 32px rgba(0,176,255,0.5);
+    }
 
+    /* ---------- features ---------- */
     .features {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -72,6 +86,7 @@ st.markdown("""
         font-size: 14px; color: #888; margin: 0; line-height: 1.5;
     }
 
+    /* ---------- how-it-works ---------- */
     .pipeline-section {
         text-align: center;
         padding: 40px 20px 60px;
@@ -97,6 +112,7 @@ st.markdown("""
     }
     .pipeline-flow .arrow { color: #455a64; font-size: 20px; }
 
+    /* ---------- footer ---------- */
     .footer {
         text-align: center;
         padding: 32px 20px;
@@ -120,7 +136,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# CTA button
+# CTA button — uses Streamlit's native page switching
 if st.button("Open Safety Map", type="primary", use_container_width=False):
     st.switch_page("pages/dashboard.py")
 
